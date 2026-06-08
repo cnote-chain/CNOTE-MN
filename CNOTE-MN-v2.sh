@@ -129,16 +129,16 @@ fi
 
 #Installing Daemon (v2.0.0)
 cd ~
-rm -rf /usr/local/bin/cnote* /usr/local/bin/c_note*
+rm -rf /usr/local/bin/cnote*
 wget https://github.com/cnote-chain/CNOTE-MN/releases/download/v2.0.0/CNOTE-Ubuntu-Daemon.zip
 unzip -o CNOTE-Ubuntu-Daemon.zip
-# v2.0.0 binaries are named c_noted / c_note-cli / c_note-tx.
+# v2.0.0 binaries are named cnoted / cnote-cli / cnote-tx.
 # Install them under the legacy cnoted / cnote-cli names so existing
 # tooling, cron jobs and the MultiMN profile keep working unchanged.
-sudo chmod -R 755 c_note-cli c_noted c_note-tx
-cp -p -r c_noted /usr/local/bin/cnoted
-cp -p -r c_note-cli /usr/local/bin/cnote-cli
-cp -p -r c_note-tx /usr/local/bin/cnote-tx
+sudo chmod -R 755 cnote-cli cnoted cnote-tx
+cp -p -r cnoted /usr/local/bin
+cp -p -r cnote-cli /usr/local/bin
+cp -p -r cnote-tx /usr/local/bin
 
 sudo mkdir ~/.cnote-params
 cd ~/.cnote-params && wget https://github.com/cnote-chain/CNOTE-MN/raw/main/params/sapling-output.params && wget https://github.com/cnote-chain/CNOTE-MN/raw/main/params/sapling-spend.params
@@ -184,7 +184,7 @@ done
     cnote-cli stop
     sleep 5
 cd ~/.cnote/ && rm -rf blocks chainstate sporks evodb
-cd ~/.cnote/ && wget https://github.com/cnote-chain/CNOTE-MN/releases/download/v1.0.0/bootstrap.zip
+cd ~/.cnote/ && wget https://github.com/cnote-chain/CNOTE-MN/releases/download/v2.0.0/bootstrap.zip
 cd ~/.cnote/ && unzip bootstrap.zip
 sudo rm -rf ~/.cnote/bootstrap.zip
 
