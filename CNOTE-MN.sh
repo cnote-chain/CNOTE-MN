@@ -1,5 +1,5 @@
 #!/bin/bash
-# CNOTE Masternode Setup Script V1.0.0 for Ubuntu LTS
+# CNOTE Masternode Setup Script V2.0.1 for Ubuntu LTS
 #
 # Script will attempt to autodetect primary public IP address
 # and generate masternode private key unless specified in command line
@@ -47,7 +47,7 @@ function stop_daemon {
 genkey=$1
 clear
 
-echo -e "${GREEN} ------- CNOTE MASTERNODE INSTALLER V1.0.0--------+
+echo -e "${GREEN} ------- CNOTE MASTERNODE INSTALLER V2.0.1--------+
  |                                                  |
  |                                                  |::
  |       The installation will install and run      |::
@@ -127,15 +127,18 @@ else
     fi
 fi
 
-#Installing Daemon
+#Installing Daemon (v2.0.1)
 cd ~
 rm -rf /usr/local/bin/cnote*
-wget https://github.com/cnote-chain/CNOTE-MN/releases/download/v1.0.0/CNOTE-ubuntu-daemon.tar.gz
-tar -xzvf CNOTE-ubuntu-daemon.tar.gz
-sudo chmod -R 755 cnote-cli
-sudo chmod -R 755 cnoted
+wget https://github.com/cnote-chain/CNOTE-MN/releases/download/v2.0.1/CNOTE-Ubuntu-Daemon.zip
+unzip -o CNOTE-Ubuntu-Daemon.zip
+# v2.0.1 binaries are named cnoted / cnote-cli / cnote-tx.
+# Install them under the legacy cnoted / cnote-cli names so existing
+# tooling, cron jobs and the MultiMN profile keep working unchanged.
+sudo chmod -R 755 cnote-cli cnoted cnote-tx
 cp -p -r cnoted /usr/local/bin
 cp -p -r cnote-cli /usr/local/bin
+cp -p -r cnote-tx /usr/local/bin
 
 sudo mkdir ~/.cnote-params
 cd ~/.cnote-params && wget https://github.com/cnote-chain/CNOTE-MN/raw/main/params/sapling-output.params && wget https://github.com/cnote-chain/CNOTE-MN/raw/main/params/sapling-spend.params
@@ -181,7 +184,7 @@ done
     cnote-cli stop
     sleep 5
 cd ~/.cnote/ && rm -rf blocks chainstate sporks evodb
-cd ~/.cnote/ && wget https://github.com/cnote-chain/CNOTE-MN/releases/download/v1.0.0/bootstrap.zip
+cd ~/.cnote/ && wget https://github.com/cnote-chain/CNOTE-MN/releases/download/v2.0.1/bootstrap.zip
 cd ~/.cnote/ && unzip bootstrap.zip
 sudo rm -rf ~/.cnote/bootstrap.zip
 
